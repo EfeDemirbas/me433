@@ -1,5 +1,6 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
+#include<stdio.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF // disable debugging
@@ -32,6 +33,9 @@
 #pragma config PMDL1WAY = OFF // allow multiple reconfigurations
 #pragma config IOL1WAY = OFF // allow multiple reconfigurations
 
+void ReadUART1(char * string, int maxLength);
+void WriteUART1(const char * string);
+
 int main() {
 
     __builtin_disable_interrupts(); // disable interrupts while initializing things
@@ -50,39 +54,98 @@ int main() {
 
     // do your TRIS and LAT commands here
 
-    __builtin_enable_interrupts();
+
     
     TRISAbits.TRISA4 = 0; //Make RA4 output for LED
     TRISBbits.TRISB4 = 1; //Set RB4 as input for user button.
     
     LATAbits.LATA4 = 0;
     
-
+    U1RXRbits.U1RXR = 0b0001;
+    RPB7Rbits.RPB7R = 0b0001;
+    
+    //Turn on UART w/out an interrupt and set Baud   
+    U1MODEbits.BRGH = 0;
+    U1BRG = ((48000000 / 115200) / 16) - 1;
+    
+    //8 bit, no parity bit, and 1 stop bit (8N1 setup)
+    U1MODEbits.PDSEL = 0;
+    U1MODEbits.STSEL = 0;
+    
+    //Configure TX & RX pins as output and input pins
+    U1STAbits.UTXEN = 1;
+    U1STAbits.URXEN = 1;
+    
+    //enable the UART
+    U1MODEbits.ON = 1;
+    
+    __builtin_enable_interrupts();
+    
+    char buf[100];
+    unsigned char index;
+    
     while (1) {
-        // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
-        // remember the core timer runs at half the sysclk
         
         if(!PORTBbits.RB4){//Note that bounce is not important for this homework
         
-        LATAbits.LATA4 = 1;
-        
-        _CP0_SET_COUNT(0);
-        
-        while(_CP0_GET_COUNT() < 24000000/2){}
-        
-        LATAbits.LATA4 = 0;
-        
-        _CP0_SET_COUNT(0);
-        
-        while(_CP0_GET_COUNT() < 24000000/2){}
-        
-        LATAbits.LATA4 = 1;
-        
-        _CP0_SET_COUNT(0);
-        
-        while(_CP0_GET_COUNT() < 24000000/2){}
-        
-        LATAbits.LATA4 = 0;
+            LATAbits.LATA4 = 1;
+
+            unsigned char index;
+            index = 33;
+            sprintf(buf,"Decimal | ASCII Character\n\r------------------------\n\r");
+            WriteUART1(buf);
+            for(index=33;index<128;index++){
+                if(index<100){
+                    sprintf(buf,"   %d   |  %c   \n\r",index,index);
+                    WriteUART1(buf);
+                }
+                else{
+                    sprintf(buf,"   %d  |  %c   \n\r",index,index);
+                    WriteUART1(buf);
+                }
+            }
+
+            LATAbits.LATA4 = 0;
+
         }
+        
+
     }
+}
+
+// Read from UART1
+// block other functions until you get a '\r' or '\n'
+// send the pointer to your char array and the number of elements in the array
+void ReadUART1(char * message, int maxLength) {
+  char data = 0;
+  int complete = 0, num_bytes = 0;
+  // loop until you get a '\r' or '\n'
+  while (!complete) {
+    if (U1STAbits.URXDA) { // if data is available
+      data = U1RXREG;      // read the data
+      if ((data == '\n') || (data == '\r')) {
+        complete = 1;
+      } else {
+        message[num_bytes] = data;
+        ++num_bytes;
+        // roll over if the array is too small
+        if (num_bytes >= maxLength) {
+          num_bytes = 0;
+        }
+      }
+    }
+  }
+  // end the string
+  message[num_bytes] = '\0';
+}
+
+// Write a character array using UART3
+void WriteUART1(const char * string) {
+  while (*string != '\0') {
+    while (U1STAbits.UTXBF) {
+      ; // wait until tx buffer isn't full
+    }
+    U1TXREG = *string;
+    ++string;
+  }
 }
