@@ -90,7 +90,6 @@ int main() {
         
             LATAbits.LATA4 = 1;
 
-            unsigned char index;
             index = 33;
             sprintf(buf,"Decimal | ASCII Character\n\r------------------------\n\r");
             WriteUART1(buf);
