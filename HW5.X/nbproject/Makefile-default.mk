@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main_hw4.c spi.c setup.c
+SOURCEFILES_QUOTED_IF_SPACED=spi.c setup.c main_hw5.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main_hw4.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/setup.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main_hw4.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/setup.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/spi.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/main_hw5.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/spi.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/main_hw5.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main_hw4.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/setup.o
+OBJECTFILES=${OBJECTDIR}/spi.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/main_hw5.o
 
 # Source Files
-SOURCEFILES=main_hw4.c spi.c setup.c
+SOURCEFILES=spi.c setup.c main_hw5.c
 
 
 
@@ -107,12 +107,6 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/main_hw4.o: main_hw4.c  .generated_files/flags/default/12bdf1b72799f03d462a1178b512ba80888cfa2e .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main_hw4.o.d 
-	@${RM} ${OBJECTDIR}/main_hw4.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main_hw4.o.d" -o ${OBJECTDIR}/main_hw4.o main_hw4.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
 ${OBJECTDIR}/spi.o: spi.c  .generated_files/flags/default/3728553c63131300a2d0d6fba165a87eb3c8ccac .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi.o.d 
@@ -125,13 +119,13 @@ ${OBJECTDIR}/setup.o: setup.c  .generated_files/flags/default/6a8e103b1388790574
 	@${RM} ${OBJECTDIR}/setup.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/setup.o.d" -o ${OBJECTDIR}/setup.o setup.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-else
-${OBJECTDIR}/main_hw4.o: main_hw4.c  .generated_files/flags/default/cf10af9f4775f48ce18141b2718181d0f2c1d268 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+${OBJECTDIR}/main_hw5.o: main_hw5.c  .generated_files/flags/default/8aa66d54794dec15a8cfd3a09486774982857b43 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/main_hw4.o.d 
-	@${RM} ${OBJECTDIR}/main_hw4.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main_hw4.o.d" -o ${OBJECTDIR}/main_hw4.o main_hw4.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${RM} ${OBJECTDIR}/main_hw5.o.d 
+	@${RM} ${OBJECTDIR}/main_hw5.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main_hw5.o.d" -o ${OBJECTDIR}/main_hw5.o main_hw5.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+else
 ${OBJECTDIR}/spi.o: spi.c  .generated_files/flags/default/a6905e9f75b38ac7267031f3a050e182ba6079b0 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi.o.d 
@@ -143,6 +137,12 @@ ${OBJECTDIR}/setup.o: setup.c  .generated_files/flags/default/8d081615f68044994f
 	@${RM} ${OBJECTDIR}/setup.o.d 
 	@${RM} ${OBJECTDIR}/setup.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/setup.o.d" -o ${OBJECTDIR}/setup.o setup.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/main_hw5.o: main_hw5.c  .generated_files/flags/default/436eec60cb33f12351d39943ef92605c9e7b65d5 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main_hw5.o.d 
+	@${RM} ${OBJECTDIR}/main_hw5.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main_hw5.o.d" -o ${OBJECTDIR}/main_hw5.o main_hw5.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 
