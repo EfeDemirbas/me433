@@ -28,7 +28,7 @@ int main() {
             _CP0_SET_COUNT(0);
         }
         
-        button = i2c_MCP23008_read(0b01000000 , 0x09);
+        button = i2c_MCP23008_read(0b01000000 , 0x09);//Read button port
         
         button = (button & 0b00000001);
         
