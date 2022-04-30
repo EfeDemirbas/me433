@@ -29,21 +29,21 @@ int main() {
         _CP0_SET_COUNT(0);
         
         
-        if ((heartbeat % 50) < 25){
-        OLED_write(Line_1_Message,1);
-        OLED_write(Line_2_Message,2);
-        sprintf(buff," /     /     fps = %4.2f",count);
-        OLED_write(buff,3);
-        sprintf(buff," (O _ 0)      i = %d",heartbeat);
-        OLED_write(buff,4);
+        if ((heartbeat % 25) < 12){
+            OLED_write(Line_1_Message,1);
+            OLED_write(Line_2_Message,2);
+            sprintf(buff," /     /     fps = %4.2f",count);
+            OLED_write(buff,3);
+            sprintf(buff," (O _ 0)      i = %d",heartbeat);
+            OLED_write(buff,4);
         }
-        if ((heartbeat % 50) > 25){
-        OLED_write(Line_1_Message,1);
-        OLED_write(Line_2_Message,2);
-        sprintf(buff," \\     \\     fps = %4.2f",count);
-        OLED_write(buff,3);
-        sprintf(buff,"  (0 . O)     i = %d",heartbeat);
-        OLED_write(buff,4);
+        if ((heartbeat % 25) > 12){
+            OLED_write(Line_1_Message,1);
+            OLED_write(Line_2_Message,2);
+            sprintf(buff," \\     \\     fps = %4.2f",count);
+            OLED_write(buff,3);
+            sprintf(buff,"  (0 . O)     i = %d",heartbeat);
+            OLED_write(buff,4);
         }
         ssd1306_update();   
         
