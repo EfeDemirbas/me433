@@ -1,0 +1,1 @@
+The image "HW_11_Line1-15-30" is created by holding a purple envelope at a 45 degree angle. As it can be seen the purple trace shows that the code is working as intended.
